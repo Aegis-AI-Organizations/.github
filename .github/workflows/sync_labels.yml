@@ -11,24 +11,28 @@ on:
 jobs:
   labels:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repository:
+          - Aegis-Ai-Organizations/Aegis-AI-Agent
+          - Aegis-Ai-Organizations/Aegis-AI-Brain
+          - Aegis-Ai-Organizations/Aegis-AI-Deployer
+          - Aegis-Ai-Organizations/Aegis-AI-Fixer
+          - Aegis-Ai-Organizations/Aegis-AI-Gateway
+          - Aegis-Ai-Organizations/Aegis-AI-Worker-Ingest
+          - Aegis-Ai-Organizations/Aegis-AI-Worker-Pentest
+          - Aegis-Ai-Organizations/Aegis-AI-Dashboard
+          - Aegis-Ai-Organizations/Aegis-AI-Landing-Page
+          - Aegis-Ai-Organizations/Aegis-AI-Infra-SecOps
+          - Aegis-Ai-Organizations/Aegis-AI-Documentation
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Sync labels across repositories
+      - name: Sync labels
         uses: crazy-max/ghaction-github-labeler@v5
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.ORG_PAT }}
           yaml-file: .github/labels.yml
-          repository: |
-            Aegis-Ai-Organizations/Aegis-AI-Agent
-            Aegis-Ai-Organizations/Aegis-AI-Brain
-            Aegis-Ai-Organizations/Aegis-AI-Deployer
-            Aegis-Ai-Organizations/Aegis-AI-Fixer
-            Aegis-Ai-Organizations/Aegis-AI-Gateway
-            Aegis-Ai-Organizations/Aegis-AI-Worker-Ingest
-            Aegis-Ai-Organizations/Aegis-AI-Worker-Pentest
-            Aegis-Ai-Organizations/Aegis-AI-Dashboard
-            Aegis-Ai-Organizations/Aegis-AI-Landing-Page
-            Aegis-Ai-Organizations/Aegis-AI-Infra-SecOps
-            Aegis-Ai-Organizations/Aegis-AI-Documentation
+          repository: ${{ matrix.repository }}
