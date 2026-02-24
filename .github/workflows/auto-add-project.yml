@@ -1,0 +1,20 @@
+name: Auto Add to Global Project
+
+on:
+  issues:
+    types:
+      - opened
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  add-to-project:
+    name: Add item to project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add to organization project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/Aegis-AI-Organizations/projects/2
+          github-token: ${{ secrets.ORG_PAT }}
