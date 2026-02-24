@@ -31,10 +31,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Sync labels
-        uses: crazy-max/ghaction-github-labeler@v5
+        uses: crazy-max/ghaction-github-labeler@v4
         with:
           github-token: ${{ secrets.ORG_PAT }}
           yaml-file: .github/labels.yml
           skip-delete: false
-        env:
-          GITHUB_REPOSITORY: ${{ matrix.repository }}
+          repository: ${{ matrix.repository }}
