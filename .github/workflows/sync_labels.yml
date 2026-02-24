@@ -15,17 +15,17 @@ jobs:
       fail-fast: false
       matrix:
         repository:
-          - Aegis-Ai-Organizations/Aegis-AI-Agent
-          - Aegis-Ai-Organizations/Aegis-AI-Brain
-          - Aegis-Ai-Organizations/Aegis-AI-Deployer
-          - Aegis-Ai-Organizations/Aegis-AI-Fixer
-          - Aegis-Ai-Organizations/Aegis-AI-Gateway
-          - Aegis-Ai-Organizations/Aegis-AI-Worker-Ingest
-          - Aegis-Ai-Organizations/Aegis-AI-Worker-Pentest
-          - Aegis-Ai-Organizations/Aegis-AI-Dashboard
-          - Aegis-Ai-Organizations/Aegis-AI-Landing-Page
-          - Aegis-Ai-Organizations/Aegis-AI-Infra-SecOps
-          - Aegis-Ai-Organizations/Aegis-AI-Documentation
+          - Aegis-AI-Organizations/Aegis-AI-Agent
+          - Aegis-AI-Organizations/Aegis-AI-Brain
+          - Aegis-AI-Organizations/Aegis-AI-Deployer
+          - Aegis-AI-Organizations/Aegis-AI-Fixer
+          - Aegis-AI-Organizations/Aegis-AI-Gateway
+          - Aegis-AI-Organizations/Aegis-AI-Worker-Ingest
+          - Aegis-AI-Organizations/Aegis-AI-Worker-Pentest
+          - Aegis-AI-Organizations/Aegis-AI-Dashboard
+          - Aegis-AI-Organizations/Aegis-AI-Landing-Page
+          - Aegis-AI-Organizations/Aegis-AI-Infra-SecOps
+          - Aegis-AI-Organizations/Aegis-AI-Documentation
     steps:
       - name: Checkout Config
         uses: actions/checkout@v4
