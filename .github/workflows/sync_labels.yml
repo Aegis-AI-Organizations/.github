@@ -27,7 +27,7 @@ jobs:
           - Aegis-Ai-Organizations/Aegis-AI-Infra-SecOps
           - Aegis-Ai-Organizations/Aegis-AI-Documentation
     steps:
-      - name: Checkout repository
+      - name: Checkout Config
         uses: actions/checkout@v4
 
       - name: Sync labels
@@ -36,5 +36,4 @@ jobs:
           github-token: ${{ secrets.ORG_PAT }}
           yaml-file: .github/labels.yml
           skip-delete: false
-        env:
-          GITHUB_REPOSITORY: ${{ matrix.repository }}
+          repository: ${{ matrix.repository }}
