@@ -32,8 +32,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Sync labels via GitHub CLI
+      - name: Cleanup Default Labels and Sync
         run: |
+          for label in "bug" "documentation" "duplicate" "enhancement" "good first issue" "help wanted" "invalid" "question" "wontfix"; do
+            gh label delete "$label" --yes || true
+          done
+
           gh label clone Aegis-AI-Organizations/.github --force
         env:
           GH_TOKEN: ${{ secrets.ORG_PAT }}
