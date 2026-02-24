@@ -34,6 +34,7 @@ jobs:
 
       - name: Sync labels via GitHub CLI
         run: |
-          gh label clone Aegis-AI-Organizations/.github ${{ matrix.repository }} --force
+          gh label clone Aegis-AI-Organizations/.github --force
         env:
           GH_TOKEN: ${{ secrets.ORG_PAT }}
+          GH_REPO: ${{ matrix.repository }}
