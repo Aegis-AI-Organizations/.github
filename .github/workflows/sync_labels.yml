@@ -36,4 +36,5 @@ jobs:
           github-token: ${{ secrets.ORG_PAT }}
           yaml-file: .github/labels.yml
           skip-delete: false
-          repository: ${{ matrix.repository }}
+        env:
+          GITHUB_REPOSITORY: ${{ matrix.repository }}
