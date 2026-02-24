@@ -1,0 +1,34 @@
+name: Sync Labels
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/labels.yml'
+  workflow_dispatch:
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sync labels across repositories
+        uses: crazy-max/ghaction-github-labeler@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          yaml-file: .github/labels.yml
+          repository: |
+            Aegis-Ai-Organizations/Aegis-AI-Agent
+            Aegis-Ai-Organizations/Aegis-AI-Brain
+            Aegis-Ai-Organizations/Aegis-AI-Deployer
+            Aegis-Ai-Organizations/Aegis-AI-Fixer
+            Aegis-Ai-Organizations/Aegis-AI-Gateway
+            Aegis-Ai-Organizations/Aegis-AI-Worker-Ingest
+            Aegis-Ai-Organizations/Aegis-AI-Worker-Pentest
+            Aegis-Ai-Organizations/Aegis-AI-Dashboard
+            Aegis-Ai-Organizations/Aegis-AI-Landing-Page
+            Aegis-Ai-Organizations/Aegis-AI-Infra-SecOps
+            Aegis-Ai-Organizations/Aegis-AI-Documentation
