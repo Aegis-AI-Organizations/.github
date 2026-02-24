@@ -34,7 +34,7 @@ jobs:
 
       - name: Cleanup Default Labels and Sync
         run: |
-          for label in "bug" "documentation" "duplicate" "enhancement" "good first issue" "help wanted" "invalid" "question" "wontfix"; do
+          for label in "bug" "documentation" "duplicate" "enhancement" "good first issue" "help wanted" "invalid" "question" "wontfix" "priority: P0-critical" "priority: P1-high" "priority: P2-medium" "priority: P3-low" "type: task"; do
             gh label delete "$label" --yes || true
           done
 
