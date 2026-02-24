@@ -16,7 +16,7 @@
 - name: "status: in-progress"
   color: "FEF2C0"
   description: "Task is currently being worked on."
-- name: "status: needs-review"
+- name: "status: review-required"
   color: "FBCA04"
   description: "Ready for code or architecture review."
 - name: "area: security"

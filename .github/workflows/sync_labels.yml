@@ -16,29 +16,31 @@ jobs:
       matrix:
         repository:
           - Aegis-AI-Organizations/Aegis-AI-Agent
-          - Aegis-AI-Organizations/Aegis-AI-Api-Gateway
           - Aegis-AI-Organizations/Aegis-AI-Brain
-          - Aegis-AI-Organizations/Aegis-AI-Dashboard
-          - Aegis-AI-Organizations/Aegis-AI-Documentation
-          - Aegis-AI-Organizations/Aegis-AI-Infra
-          - Aegis-AI-Organizations/Aegis-AI-Landing
-          - Aegis-AI-Organizations/Aegis-AI-Proto
-          - Aegis-AI-Organizations/Aegis-AI-Worker-Deployer
-          - Aegis-AI-Organizations/Aegis-AI-Worker-Fixer
+          - Aegis-AI-Organizations/Aegis-AI-Deployer
+          - Aegis-AI-Organizations/Aegis-AI-Fixer
+          - Aegis-AI-Organizations/Aegis-AI-Gateway
           - Aegis-AI-Organizations/Aegis-AI-Worker-Ingest
           - Aegis-AI-Organizations/Aegis-AI-Worker-Pentest
-          
+          - Aegis-AI-Organizations/Aegis-AI-Dashboard
+          - Aegis-AI-Organizations/Aegis-AI-Landing-Page
+          - Aegis-AI-Organizations/Aegis-AI-Infra-SecOps
+          - Aegis-AI-Organizations/Aegis-AI-Documentation
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cleanup Default Labels and Sync
+      - name: Strict Sync from YAML
         run: |
           for label in "bug" "documentation" "duplicate" "enhancement" "good first issue" "help wanted" "invalid" "question" "wontfix" "priority: P0-critical" "priority: P1-high" "priority: P2-medium" "priority: P3-low" "type: task"; do
             gh label delete "$label" --yes || true
           done
 
-          gh label clone Aegis-AI-Organizations/.github --force
+          yq e '.[] | [.name, .color, .description] | @tsv' .github/labels.yml | while IFS=$'\t' read -r name color description; do
+            echo "Syncing label: $name"
+            gh label edit "$name" --color "$color" --description "$description" || \
+            gh label create "$name" --color "$color" --description "$description"
+          done
         env:
           GH_TOKEN: ${{ secrets.ORG_PAT }}
           GH_REPO: ${{ matrix.repository }}
