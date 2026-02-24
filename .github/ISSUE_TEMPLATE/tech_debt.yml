@@ -1,0 +1,28 @@
+name: 🔨 Tech Debt
+description: Refactoring, optimization, or dependency updates.
+title: "[REFACTO] - "
+labels: ["type: tech-debt"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🧩 Impacted Component
+      options:
+        - "Agent (Rust)"
+        - "Worker Ingest (Rust)"
+        - "Worker Deployer (Go)"
+        - "Worker Fixer (Go)"
+        - "Worker Pentest"
+        - "Brain (Python)"
+        - "API Gateway (Go)"
+        - "Dashboard (React)"
+        - "Infra & SecOps"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Description of the Technical Debt
+      description: Which code needs to be improved and why (performance, readability, security)?
+    validations:
+      required: true

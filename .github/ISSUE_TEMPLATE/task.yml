@@ -1,0 +1,30 @@
+name: 📋 Task / Chore
+description: Technical task, maintenance, configuration, or documentation.
+title: "[TASK] - "
+labels: ["type: task"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🧩 Impacted Component
+      options:
+        - "Agent (Rust)"
+        - "Worker Ingest (Rust)"
+        - "Worker Deployer (Go)"
+        - "Worker Fixer (Go)"
+        - "Worker Pentest"
+        - "Brain (Python)"
+        - "API Gateway (Go)"
+        - "Dashboard (React)"
+        - "Landing Page"
+        - "Infra & SecOps"
+        - "Documentation"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Task Description
+      description: What exactly needs to be done?
+    validations:
+      required: true

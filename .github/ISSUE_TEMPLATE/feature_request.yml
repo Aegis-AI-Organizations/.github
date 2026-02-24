@@ -1,0 +1,39 @@
+name: ✨ Feature Request
+description: Propose a new feature for the architecture.
+title: "[FEAT] - "
+labels: ["type: feature"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🧩 Impacted Component
+      options:
+        - "Agent (Rust)"
+        - "Worker Ingest (Rust)"
+        - "Worker Deployer (Go)"
+        - "Worker Fixer (Go)"
+        - "Worker Pentest"
+        - "Brain (Python)"
+        - "API Gateway (Go)"
+        - "Dashboard (React)"
+        - "Landing Page"
+        - "Infra & SecOps"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Feature Description
+      description: What is the use case or the problem this feature will solve?
+    validations:
+      required: true
+  - type: textarea
+    id: dod
+    attributes:
+      label: ✅ Acceptance Criteria (Definition of Done)
+      description: List the technical criteria for this feature to be considered valid.
+      value: |
+        - [ ] The component does X...
+        - [ ] Performance is maintained under Y ms...
+    validations:
+      required: true

@@ -1,0 +1,43 @@
+name: 🐛 Bug Report
+description: Report a bug, crash, or issue on an Aegis component.
+title: "[BUG] - "
+labels: ["type: bug"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🧩 Impacted Component
+      description: Which microservice is experiencing the bug?
+      options:
+        - "Agent (Rust)"
+        - "Worker Ingest (Rust)"
+        - "Worker Deployer (Go)"
+        - "Worker Fixer (Go)"
+        - "Worker Pentest"
+        - "Brain (Python)"
+        - "API Gateway (Go)"
+        - "Dashboard (React)"
+        - "Landing Page"
+        - "Infra & SecOps"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Description
+      description: Explain the problem clearly and concisely.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🔄 Steps to Reproduce
+      description: How can we trigger this bug?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📋 Logs or Screenshots
+      description: Paste your crash logs or screenshots here.
+      render: shell
