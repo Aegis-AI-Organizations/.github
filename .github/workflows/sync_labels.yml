@@ -1,5 +1,9 @@
 name: Sync Labels
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 on:
   push:
     branches:
@@ -16,16 +20,16 @@ jobs:
       matrix:
         repository:
           - Aegis-AI-Organizations/Aegis-AI-Agent
+          - Aegis-AI-Organizations/Aegis-AI-Api-Gateway
           - Aegis-AI-Organizations/Aegis-AI-Brain
-          - Aegis-AI-Organizations/Aegis-AI-Deployer
-          - Aegis-AI-Organizations/Aegis-AI-Fixer
-          - Aegis-AI-Organizations/Aegis-AI-Gateway
+          - Aegis-AI-Organizations/Aegis-AI-Dashboard
+          - Aegis-AI-Organizations/Aegis-AI-Infra
+          - Aegis-AI-Organizations/Aegis-AI-Proto
+          - Aegis-AI-Organizations/Aegis-AI-Worker-Deployer
+          - Aegis-AI-Organizations/Aegis-AI-Worker-Fixer
           - Aegis-AI-Organizations/Aegis-AI-Worker-Ingest
           - Aegis-AI-Organizations/Aegis-AI-Worker-Pentest
-          - Aegis-AI-Organizations/Aegis-AI-Dashboard
-          - Aegis-AI-Organizations/Aegis-AI-Landing-Page
-          - Aegis-AI-Organizations/Aegis-AI-Infra-SecOps
-          - Aegis-AI-Organizations/Aegis-AI-Documentation
+          - Aegis-AI-Organizations/Aegis-Documentation
     steps:
       - name: Checkout
         uses: actions/checkout@v4
