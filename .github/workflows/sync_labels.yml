@@ -2,8 +2,6 @@ name: Sync Labels
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 on:
   push:
     branches:
