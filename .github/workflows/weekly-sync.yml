@@ -16,14 +16,50 @@ jobs:
         id: date
         run: echo "week=$(date +'%V')" >> $GITHUB_OUTPUT
 
+      - name: Get Repository and Category IDs
+        id: ids
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch repository ID and discussion categories
+          QUERY='query($owner:String!, $name:String!) {
+            repository(owner:$owner, name:$name) {
+              id
+              discussionCategories(first:10) {
+                nodes {
+                  id
+                  name
+                }
+              }
+            }
+          }'
+          
+          # Execute GraphQL query
+          RESULT=$(gh api graphql -F owner='${{ github.repository_owner }}' -F name='.github' -f query="$QUERY")
+          
+          # Extract Repository ID
+          REPO_ID=$(echo "$RESULT" | jq -r '.data.repository.id')
+          
+          # Extract Category ID for 'General' (or fallback to the first one available)
+          CAT_ID=$(echo "$RESULT" | jq -r '.data.repository.discussionCategories.nodes[] | select(.name == "General") | .id')
+          if [ -z "$CAT_ID" ] || [ "$CAT_ID" == "null" ]; then
+            CAT_ID=$(echo "$RESULT" | jq -r '.data.repository.discussionCategories.nodes[0].id')
+          fi
+          
+          echo "repo_id=$REPO_ID" >> $GITHUB_OUTPUT
+          echo "cat_id=$CAT_ID" >> $GITHUB_OUTPUT
+
       - name: Create Weekly Sync Discussion
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_ID: ${{ steps.ids.outputs.repo_id }}
+          CAT_ID: ${{ steps.ids.outputs.cat_id }}
+          WEEK: ${{ steps.date.outputs.week }}
           TEAM_MEMBERS: "@enzogaggiotti @Antoine-AegisAI"
         run: |
-          TITLE="[Weekly Sync] Semaine ${{ steps.date.outputs.week }}"
+          TITLE="[Weekly Sync] Semaine $WEEK"
           BODY=$(cat <<EOF
-          # 🛡️ Aegis AI - Weekly Sync (Semaine ${{ steps.date.outputs.week }})
+          # 🛡️ Aegis AI - Weekly Sync (Semaine $WEEK)
           
           Bonjour l'équipe ! 👋
           
@@ -44,6 +80,21 @@ jobs:
           EOF
           )
           
-          # Create the discussion in the 'General' category (slug: general)
-          # Note: If 'general' doesn't exist, this might need adjustment to a valid category ID.
-          gh discussion create --title "$TITLE" --body "$BODY" --category "General"
+          # Create discussion via GraphQL mutation
+          gh api graphql -f query='
+            mutation($repositoryId: ID!, $categoryId: ID!, $title: String!, $body: String!) {
+              createDiscussion(input: {
+                repositoryId: $repositoryId, 
+                categoryId: $categoryId, 
+                title: $title, 
+                body: $body
+              }) {
+                discussion {
+                  url
+                }
+              }
+            }' \
+            -f repositoryId="$REPO_ID" \
+            -f categoryId="$CAT_ID" \
+            -f title="$TITLE" \
+            -f body="$BODY"
