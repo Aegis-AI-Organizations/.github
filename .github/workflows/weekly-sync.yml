@@ -55,7 +55,7 @@ jobs:
           REPO_ID: ${{ steps.ids.outputs.repo_id }}
           CAT_ID: ${{ steps.ids.outputs.cat_id }}
           WEEK: ${{ steps.date.outputs.week }}
-          TEAM_MEMBERS: "@enzogaggiotti @Antoine-AegisAI"
+          TEAM_MEMBERS: "@Antoine0703 @skignes @enzogagg @Dev2noe @axeldld"
         run: |
           TITLE="[Weekly Sync] Semaine $WEEK"
           BODY=$(cat <<EOF
