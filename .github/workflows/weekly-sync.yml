@@ -60,22 +60,22 @@ jobs:
           TITLE="[Weekly Sync] Semaine $WEEK"
           BODY=$(cat <<EOF
           # 🛡️ Aegis AI - Weekly Sync (Semaine $WEEK)
-          
+
           Bonjour l'équipe ! 👋
-          
-          C'est l'heure de notre synchronisation hebdomadaire. Merci de répondre à ce thread en utilisant le format **Progress, Plans, Problems (PPP)** pour chaque repository sur lequel vous avez travaillé.
-          
-          ## 👥 Participants
+
+          C'est l'heure de notre synchronisation hebdomadaire. Merci de répondre à ce thread pour partager votre avancement global.
+
+          ## 🔔 Notifications
           $TEAM_MEMBERS
-          
-          ## 📋 Template de Réponse
-          \`\`\`markdown
-          ### [Repo Name]
-          - **Progress**: Ce que j'ai accompli cette semaine.
-          - **Plans**: Mes objectifs pour la semaine prochaine.
-          - **Problems**: Les points de blocage ou alertes (si besoin).
-          \`\`\`
-          
+
+          ## 📋 Instructions
+          Chaque membre est invité à répondre avec son bilan de la semaine en suivant ce format :
+
+          ### @VotrePseudo
+          - **Progress**: Ce que j'ai accompli cette semaine (tous repos confondus).
+          - **Plans**: Mes priorités pour la semaine prochaine.
+          - **Problems**: Points de blocage ou alertes.
+
           Bonne synchronisation ! 🚀
           EOF
           )
