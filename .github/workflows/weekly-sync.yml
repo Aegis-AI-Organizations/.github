@@ -1,0 +1,49 @@
+name: Weekly Sync Discussion
+
+on:
+  schedule:
+    - cron: '0 10 * * 5' # Every Friday at 10:00 AM UTC
+  workflow_dispatch: # Allows manual trigger for testing
+
+jobs:
+  create-discussion:
+    runs-on: ubuntu-latest
+    permissions:
+      discussions: write
+      contents: read
+    steps:
+      - name: Calculate Week Number
+        id: date
+        run: echo "week=$(date +'%V')" >> $GITHUB_OUTPUT
+
+      - name: Create Weekly Sync Discussion
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEAM_MEMBERS: "@enzogaggiotti @Antoine-AegisAI"
+        run: |
+          TITLE="[Weekly Sync] Semaine ${{ steps.date.outputs.week }}"
+          BODY=$(cat <<EOF
+          # 🛡️ Aegis AI - Weekly Sync (Semaine ${{ steps.date.outputs.week }})
+          
+          Bonjour l'équipe ! 👋
+          
+          C'est l'heure de notre synchronisation hebdomadaire. Merci de répondre à ce thread en utilisant le format **Progress, Plans, Problems (PPP)** pour chaque repository sur lequel vous avez travaillé.
+          
+          ## 👥 Participants
+          $TEAM_MEMBERS
+          
+          ## 📋 Template de Réponse
+          \`\`\`markdown
+          ### [Repo Name]
+          - **Progress**: Ce que j'ai accompli cette semaine.
+          - **Plans**: Mes objectifs pour la semaine prochaine.
+          - **Problems**: Les points de blocage ou alertes (si besoin).
+          \`\`\`
+          
+          Bonne synchronisation ! 🚀
+          EOF
+          )
+          
+          # Create the discussion in the 'General' category (slug: general)
+          # Note: If 'general' doesn't exist, this might need adjustment to a valid category ID.
+          gh discussion create --title "$TITLE" --body "$BODY" --category "General"
