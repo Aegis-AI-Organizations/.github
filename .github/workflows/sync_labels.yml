@@ -35,13 +35,21 @@ jobs:
       - name: Strict Sync from YAML
         run: |
           for label in "bug" "documentation" "duplicate" "enhancement" "good first issue" "help wanted" "invalid" "question" "wontfix" "priority: P0-critical" "priority: P1-high" "priority: P2-medium" "priority: P3-low" "type: task"; do
-            gh label delete "$label" --yes || true
+            gh label delete "$label" --yes 2>/dev/null || true
           done
 
-          yq e '.[] | [.name, .color, .description] | @tsv' .github/labels.yml | while IFS=$'\t' read -r name color description; do
+          # Use gh api to fetch and set labels to bypass yq parsing issues
+          yq e -o=json .github/labels.yml > /tmp/labels.json
+          
+          jq -c '.[]' /tmp/labels.json | while read -r label_json; do
+            name=$(echo "$label_json" | jq -r '.name')
+            color=$(echo "$label_json" | jq -r '.color')
+            desc=$(echo "$label_json" | jq -r '.description')
+            
             echo "Syncing label: $name"
-            gh label edit "$name" --color "$color" --description "$description" || \
-            gh label create "$name" --color "$color" --description "$description"
+            # Try to edit, if it fails (404), create it. Redirect 404 stderr to null.
+            gh label edit "$name" --color "$color" --description "$desc" 2>/dev/null || \
+            gh label create "$name" --color "$color" --description "$desc"
           done
         env:
           GH_TOKEN: ${{ secrets.ORG_PAT }}
