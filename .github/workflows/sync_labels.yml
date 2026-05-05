@@ -34,7 +34,7 @@ jobs:
 
       - name: Strict Sync from YAML
         run: |
-          for label in "bug" "documentation" "duplicate" "enhancement" "good first issue" "help wanted" "invalid" "question" "wontfix" "priority: P0-critical" "priority: P1-high" "priority: P2-medium" "priority: P3-low" "type: task"; do
+          for label in "bug" "documentation" "duplicate" "enhancement" "good first issue" "help wanted" "invalid" "question" "wontfix" "priority: P0-critical" "priority: P1-high" "priority: P2-medium" "priority: P3-low" "type: task" "type: feature" "type: tech-debt" "type: docs" "status: blocked" "status: in-progress" "status: review-required" "area: security" "area: infra" "env: production" "env: staging" "impact: breaking-change"; do
             gh label delete "$label" --yes 2>/dev/null || true
           done
 
