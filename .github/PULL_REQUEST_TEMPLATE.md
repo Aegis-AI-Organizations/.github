@@ -2,12 +2,20 @@
 Fixes # (Issue Number)
 
 ## 🧩 Impacted Component
-- [ ] 🤖 Agent / Ingest (Rust)
-- [ ] 🚀 Workers (Go)
+- [ ] 🤖 Agent (Rust)
 - [ ] 🧠 Brain (Python)
-- [ ] 🐹 API Gateway
-- [ ] 💻 Frontend / UI
-- [ ] 🐳 Infrastructure / CI-CD
+- [ ] 🐹 Gateway (Go)
+- [ ] 💻 Dashboard (Web)
+- [ ] 🌐 Landing Page
+- [ ] 🐳 Infrastructure (K8s)
+- [ ] 📄 Documentation
+- [ ] 📜 Contracts (Proto)
+- [ ] 📥 Worker (Ingest)
+- [ ] 🚀 Worker (Deployer)
+- [ ] 🛠️ Worker (Fixer)
+- [ ] 🕵️ Worker (Pentest)
+- [ ] 🔧 Internal Tools
+
 
 ## ✅ DevSecOps Checklist (Definition of Done)
 - [ ] My code compiles and passes local tests.
